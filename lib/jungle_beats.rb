@@ -1,5 +1,5 @@
 # End Goal: `say -r 500 -v Boing "#{jb.all}"`
-require '/Users/bmartenson/turing/1module/projects/jungle_beats/lib/node.rb'
+require './lib/node'
 
 class JungleBeats
 
@@ -10,27 +10,25 @@ class JungleBeats
     @count = 0
   end
 
-  def append(value)
-    @head = Node.new(value)
-    @count += 1
-  end
-  binding.pry
+# binding.pry
+# TO APPEND:
+# If head is nil, set value to head
+# If head is not nil, FIND TAIL
+# Set new node to be node-1.next_node
 
-  def find_tail
-    # Is head nil?
-    # If there is a head, set current at head, set pointer at +1
-    # Is the next node nil?
-    # If next node is nil, head = tail
-    # If next node is not nil, move pointer +1, current +1
-    # until next node is nil, move counter +1
-    # Once next node is nil, node = tail
-    if @head.nil? == false
-    until Node.next_node == nil
-      move counter to next node
+  def append(value)
+    if @head == nil
+      @head = Node.new(value)
+      @count += 1
+    else @head.next_node = nil
+        node = Node.new(value)
+        @head.next_node = node
+        @count += 1
     end
-    else
-      node = tail
-    end
+  end
+
+  def to_s(input)
+    # MAKE INPUTS STOP RETURNING NIL
   end
 
   def prepend(value)

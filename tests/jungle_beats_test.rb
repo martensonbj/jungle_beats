@@ -1,23 +1,29 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require '/Users/bmartenson/turing/1module/projects/jungle_beats/lib/jungle_beats.rb'
+require './lib/jungle_beats'
 
 class JungleBeatsTest < Minitest::Test
 
   def test_for_empty_beats
     jb = JungleBeats.new
-    assert_equal 0, jb.count
+    assert_equal 0, jb.count.to_i
   end
 
   def test_head_is_nil_when_list_is_empty
     jb = JungleBeats.new
-    jb.count == 0
     assert_equal nil, @head
   end
 
   def test_there_is_a_head
     jb = JungleBeats.new
-    assert_equal @head, nil
+    jb.append("Head")
+    assert_equal "Head", jb.head.data
+  end
+
+  def test_count_of_linked_list_is_1
+    jb = JungleBeats.new
+    jb.append("Head")
+    assert_equal 1, jb.count
   end
 
   def test_the_head_does_not_point_to_nil

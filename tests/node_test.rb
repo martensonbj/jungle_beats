@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require '/Users/bmartenson/turing/1module/projects/jungle_beats/lib/node.rb'
+require './lib/node'
 
 class NodeTest < Minitest::Test
 
@@ -10,14 +10,12 @@ class NodeTest < Minitest::Test
   end
 
   def test_there_is_one_node
-    skip
     n = Node.new("dee")
     assert_equal "dee", n.data
     assert_equal nil, n.next_node
   end
 
   def test_there_are_two_nodes
-    skip
     n = Node.new("dee")
     assert "dee", n.data
     n1 = Node.new("tee")
@@ -26,15 +24,13 @@ class NodeTest < Minitest::Test
   end
 
   def test_there_are_two_linked_nodes
-    skip
     n = Node.new("dee")
     n1 = Node.new("tee")
-    n.next_node = n2
-    assert "tee", n2.data
+    n.next_node = n1
+    assert "tee", n1.data
   end
 
   def test_there_are_three_linking_nodes
-    skip
     n = Node.new("dee")
     assert_equal "dee", n.data
     assert_equal nil, n.next_node
