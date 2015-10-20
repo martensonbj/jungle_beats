@@ -37,15 +37,12 @@ class JungleBeats
   end
 
   def all
-    puts JungleBeats.new
   end
 
   def count
-    @count
   end
 
   def play(value)
-
   end
 
 end

@@ -1,12 +1,13 @@
 require 'pry'
 class Node
 
-  attr_reader :data, :next_node
+  attr_accessor :data, :next_node
 
-  def initialize(data, next_node)
+  def initialize(data, next_node=nil)
     @data = data
-    @next_node = nil
+    @next_node = next_node
   end
 
+# binding.pry
 
 end
