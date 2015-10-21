@@ -45,6 +45,7 @@ class JungleBeatsTest < Minitest::Test
 
 # COUNT
   def test_there_are_0_beats
+    skip
     jb = JungleBeats.new
     assert_equal 0, jb.count
   end

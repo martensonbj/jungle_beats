@@ -30,14 +30,15 @@ class JungleBeats
   end
 
   def count
-      counter = 1
-      current_node = @head
-      until current_node.next_node == nil
-        current_node = current_node.next_node
-        counter += 1
-      end
-    counter
+    counter = 1
+    current_node = @head
+    tail = find_tail
+    until current_node.next_node = tail
+      current_node = current_node.next_node
+      counter += 1
     binding.pry
+    end
+    counter
   end
 
   def all
