@@ -3,42 +3,46 @@ require './lib/node'
 
 class JungleBeats
 
-  attr_accessor :head, :count
+  attr_accessor :head
 
-  def initialize
-    @head = nil
-    @count = 0
+  def initialize(beats=nil)
+    @head = Node.new(beats)
   end
 
-# binding.pry
-# TO APPEND:
-# If head is nil, set value to head
-# If head is not nil, FIND TAIL
-# Set new node to be node-1.next_node
+  def find_tail
+    current_node = @head
+    until current_node.next_node == nil
+      current_node = current_node.next_node
+    end
+    current_node
+  end
 
   def append(value)
-    if @head == nil
-      @head = Node.new(value)
-      @count += 1
-    else @head.next_node = nil
-        node = Node.new(value)
-        @head.next_node = node
-        @count += 1
-    end
-  end
-
-  def to_s(input)
-    # MAKE INPUTS STOP RETURNING NIL
+    new_node = Node.new(value)
+    find_tail.next_node = new_node
   end
 
   def prepend(value)
+    beats = string of beats
+    temp = head of beats
   end
+
+  def count
+    counter = 1
+    current_node = @head
+      until current_node.next_node == nil
+        current_node = current_node.next_node
+        counter += 1
+      end
+    counter
+  end
+
+
 
   def all
   end
 
-  def count
-  end
+  # binding.pry
 
   def play(value)
   end

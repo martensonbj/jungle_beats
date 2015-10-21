@@ -6,30 +6,50 @@ class JungleBeatsTest < Minitest::Test
 
   def test_for_empty_beats
     jb = JungleBeats.new
-    assert_equal 0, jb.count.to_i
+    assert_equal nil, jb.head.data
   end
 
   def test_head_is_nil_when_list_is_empty
     jb = JungleBeats.new
-    assert_equal nil, @head
+    assert_equal nil, jb.head.data
   end
 
   def test_there_is_a_head
-    jb = JungleBeats.new
-    jb.append("Head")
-    assert_equal "Head", jb.head.data
+    jb = JungleBeats.new("Node1")
+    assert_equal "Node1", jb.head.data
   end
 
-  def test_count_of_linked_list_is_1
-    jb = JungleBeats.new
-    jb.append("Head")
+  def test_the_head_is_the_tail_with_one_node
+    jb = JungleBeats.new("Node1")
+    head = jb.head.data
+    tail = jb.find_tail
+    assert_equal "Node1", head
+    assert_equal "Node1", jb.find_tail.data
+  end
+
+  def test_you_can_append_a_node
+    jb = JungleBeats.new("Head_Node")
+    jb.append("Node1")
+    assert_equal "Node1", jb.head.next_node.data
+  end
+
+  def test_you_can_append_another_node
+    jb = JungleBeats.new("Head_Node")
+    jb.append("Node1")
+    assert_equal "Node1", jb.head.next_node.data
+    jb.append("Node2")
+    assert_equal "Node2",  jb.find_tail.data
+  end
+
+  def test_there_is_one_beat
+    jb = JungleBeats.new("tee")
     assert_equal 1, jb.count
   end
 
-  def test_the_head_does_not_point_to_nil
-    skip
-    jb = JungleBeats.new
-    assert 0 > jb.count
+  def test_there_are_2_beats
+    jb = JungleBeats.new("tee")
+    jb.append("bam")
+    assert_equal 2, jb.count
   end
 
   def test_all_for_one_beat
@@ -37,12 +57,6 @@ class JungleBeatsTest < Minitest::Test
     jb = JungleBeats.new
     jb.append("tee")
     assert_equal "tee", jb.all
-  end
-
-  def test_count_for_empty_beats
-    skip
-    jb = JungleBeats.new
-    assert_equal 0, jb.count
   end
 
   def test_count_for_1_beat
