@@ -4,6 +4,7 @@ require './lib/jungle_beats'
 
 class JungleBeatsTest < Minitest::Test
 
+# GENERAL
   def test_for_empty_beats
     jb = JungleBeats.new
     assert_equal nil, jb.head.data
@@ -27,10 +28,11 @@ class JungleBeatsTest < Minitest::Test
     assert_equal "Node1", jb.find_tail.data
   end
 
+# APPEND
   def test_you_can_append_a_node
     jb = JungleBeats.new("Head_Node")
     jb.append("Node1")
-    assert_equal "Node1", jb.head.next_node.data
+    assert_equal "Node1", jb.find_tail.data
   end
 
   def test_you_can_append_another_node
@@ -39,6 +41,12 @@ class JungleBeatsTest < Minitest::Test
     assert_equal "Node1", jb.head.next_node.data
     jb.append("Node2")
     assert_equal "Node2",  jb.find_tail.data
+  end
+
+# COUNT
+  def test_there_are_0_beats
+    jb = JungleBeats.new
+    assert_equal 0, jb.count
   end
 
   def test_there_is_one_beat
@@ -52,18 +60,70 @@ class JungleBeatsTest < Minitest::Test
     assert_equal 2, jb.count
   end
 
+# ALL
   def test_all_for_one_beat
-    skip
-    jb = JungleBeats.new
-    jb.append("tee")
-    assert_equal "tee", jb.all
+    jb = JungleBeats.new("tee")
+    assert_equal ["tee"], jb.all
   end
 
-  def test_count_for_1_beat
+  def test_all_for_multiple_beats
+    jb = JungleBeats.new("tee")
+    jb.append("bam")
+    jb.append("boom")
+    assert_equal ["tee", "bam", "boom"], jb.all
+  end
+
+# PREPEND
+  def test_it_prepends_a_node
+    jb = JungleBeats.new("tee")
+    jb.prepend("boop")
+    assert_equal "boop", jb.head.data
+  end
+
+  def test_it_prepends_another_node
+    jb = JungleBeats.new("tee")
+    jb.prepend("boop")
+    jb.prepend("bam")
+    assert_equal "bam", jb.head.data
+  end
+
+# FIND
+  def test_it_finds_a_value
     skip
-    jb = JungleBeats.new
-    jb.append ("dee")
-    assert_equal 1 , jb.count
+    jb = JungleBeats.new("boom")
+    jb.append("tee")
+    jb.append("bam")
+    assert_equal ["boom", "tee", "bam"], jb.all
+    assert_equal true, jb.find("bam")
+  end
+
+# INCLUDE
+  def test_it_includes_a_value
+    jb = JungleBeats.new("boom")
+    jb.append("tee")
+    jb.append("bam")
+    assert_equal ["boom", "tee", "bam"], jb.all
+    assert_equal true, jb.include?("tee")
+  end
+
+# POP
+  def test_it_pops_the_last_element
+    jb = JungleBeats.new("boom")
+    jb.append("tee")
+    jb.append("bam")
+    assert_equal ["boom", "tee", "bam"], jb.all
+    assert_equal "bam", jb.pop
+  end
+
+# TESTS THAT REQUIRE SPLIT ELEMENTS
+  def test_it_pops_multiple_elements
+    skip
+    jb = JungleBeats.new("boom")
+    jb.append("tee")
+    jb.append("bam")
+    jb.append("pop")
+    assert_equal ["boom", "tee", "bam", "pop"], jb.all
+    assert_equal ["bam", "pop"], jb.pop
   end
 
   def test_count_for_4_beats
@@ -80,7 +140,6 @@ class JungleBeatsTest < Minitest::Test
   end
 
   def test_it_returns_nil_when_empty_array_popped
-    skip
     jb = JungleBeats.new
     jb.count == 0
     assert_equal nil, jb.pop
