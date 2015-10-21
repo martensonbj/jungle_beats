@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/jungle_beats'
+require 'pry'
 
 class JungleBeatsTest < Minitest::Test
 
@@ -10,14 +11,9 @@ class JungleBeatsTest < Minitest::Test
     assert_equal nil, jb.head.data
   end
 
-  def test_head_is_nil_when_list_is_empty
-    jb = JungleBeats.new
-    assert_equal nil, jb.head.data
-  end
-
   def test_there_is_a_head
-    jb = JungleBeats.new("Node1")
-    assert_equal "Node1", jb.head.data
+    jb = JungleBeats.new("tee")
+    assert_equal "tee", jb.head.data
   end
 
   def test_the_head_is_the_tail_with_one_node
@@ -45,17 +41,18 @@ class JungleBeatsTest < Minitest::Test
 
 # COUNT
   def test_there_are_0_beats
-    skip
     jb = JungleBeats.new
     assert_equal 0, jb.count
   end
 
   def test_there_is_one_beat
+    skip
     jb = JungleBeats.new("tee")
     assert_equal 1, jb.count
   end
 
   def test_there_are_2_beats
+    skip
     jb = JungleBeats.new("tee")
     jb.append("bam")
     assert_equal 2, jb.count
@@ -78,6 +75,7 @@ class JungleBeatsTest < Minitest::Test
   def test_it_prepends_a_node
     jb = JungleBeats.new("tee")
     jb.prepend("boop")
+    binding.pry
     assert_equal "boop", jb.head.data
   end
 
@@ -90,12 +88,15 @@ class JungleBeatsTest < Minitest::Test
 
 # FIND
   def test_it_finds_a_value
-    skip
     jb = JungleBeats.new("boom")
     jb.append("tee")
     jb.append("bam")
     assert_equal ["boom", "tee", "bam"], jb.all
-    assert_equal true, jb.find("bam")
+    assert_equal "bam", jb.find(1, 1)
+  end
+
+  def test_it_finds_another_value
+    skip
   end
 
 # INCLUDE
@@ -105,6 +106,16 @@ class JungleBeatsTest < Minitest::Test
     jb.append("bam")
     assert_equal ["boom", "tee", "bam"], jb.all
     assert_equal true, jb.include?("tee")
+  end
+
+  def test_it_includes_another_value
+    jb = JungleBeats.new("boom")
+    jb.append("tee")
+    jb.append("bam")
+    jb.append("boom")
+    jb.append("boom")
+    # assert_equal true, jb.include?("bam")
+    assert_equal true, jb.include?("boom")
   end
 
 # POP

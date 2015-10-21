@@ -1,5 +1,5 @@
 # End Goal: `say -r 500 -v Boing "#{jb.all}"`
-require './lib/node'
+require_relative 'node'
 require 'pry'
 
 class JungleBeats
@@ -24,21 +24,21 @@ class JungleBeats
   end
 
   def prepend(value)
-    node_to_prepend = Node.new(value)
-    node_to_prepend.next_node = @head
-    @head = node_to_prepend
+    # node_to_prepend = Node.new(value)
+    # node_to_prepend.next_node = @head
+    # @head = node_to_prepend
+    @head = Node.new(value, @head)
   end
 
   def count
     counter = 1
     current_node = @head
     tail = find_tail
-    until current_node.next_node = tail
+    until current_node.next_node == tail
       current_node = current_node.next_node
       counter += 1
-    binding.pry
     end
-    counter
+    counter + 1
   end
 
   def all
@@ -64,14 +64,18 @@ class JungleBeats
   end
 
   def find(index, num_values)
-    current_node = @head
-    counter = 1
-    until current_node == nil
-      if current_node.data == value
-        return value
-      else
-        current_node = current_node.next_node
-      end
+    # counter = 0
+    # current_node = @head
+    # until current_node.next_node == nil
+    #   counter += 1
+    #   if counter == index
+    #     print given number of nodes
+    #   else
+    #     "Node not in list"
+    #   end
+    # end
+    all.find do |index, num_values|
+      
     end
   end
 
@@ -93,3 +97,12 @@ class JungleBeats
   end
 
 end
+
+beat = JungleBeats.new("beep")
+beat.append("bop")
+beat.append("bop")
+beat.append("bop")
+beat.append("bop")
+beat.prepend("bam")
+beat.all
+beat.count
