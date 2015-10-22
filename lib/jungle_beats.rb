@@ -8,7 +8,29 @@ class JungleBeats
 
   def initialize(beats=nil)
     @head = Node.new(beats)
+    make_linked_list(beats)
   end
+
+  def make_linked_list(beats)
+    if beats
+      beats = beats.split
+      node = Node.new()
+      if @head == nil
+        @head= node
+        beats.shift
+        node = @head
+      else
+        @data = node
+        beats.shift
+        node = @data
+      end
+      beats.each do |word|
+        node.next_node = Node.new(word)
+        node = node.next_node
+      end
+    end
+  end
+
 
   def find_tail
     current_node = @head
@@ -31,14 +53,17 @@ class JungleBeats
   end
 
   def count
-    counter = 1
-    current_node = @head
-    tail = find_tail
-    until current_node.next_node == tail
-      current_node = current_node.next_node
-      counter += 1
+    if @head.data == nil
+      counter = 0
+    else
+      counter = 1
+      current_node = @head
+      until current_node.next_node == nil
+        current_node = current_node.next_node
+        counter += 1
+      end
     end
-    counter + 1
+    counter
   end
 
   def all
@@ -48,19 +73,22 @@ class JungleBeats
       display_all << current_node.data
       current_node = current_node.next_node
     end
-    display_all
+    display_all.join(" ")
   end
 
-  def pop
+  def pop(num=1)
+    current_node = @head
+    popped_values = []
     if count == 0
       return nil
     else
-    tail = find_tail
-    popped_value = tail.data
-    tail.data = nil
-    new_tail = find_tail
-    return popped_value
+      temp_tail = find_tail
+      popped_item = temp_tail.data
+      popped_values << popped_item
+      temp_tail.data = nil
+      current_node = @head
     end
+    return popped_value.join(" ")
   end
 
   def find(index, num_values)
@@ -74,9 +102,8 @@ class JungleBeats
     #     "Node not in list"
     #   end
     # end
-    all.find do |index, num_values|
-      
-    end
+    all[(index+1)..(index+num_values)]
+
   end
 
   def include?(value)
@@ -90,19 +117,31 @@ class JungleBeats
     end
   end
 
-  def insert
-  end
+  # def insert(number, input)
+  #   current_value = @head
+  #   counter = 1
+  #   # (MAKE LINK LIST(input))
+  # end
 
-  def play(value)
+  def play(mad_beats)
+    mad_beats = all
+    return "`say -r 500 -v Boing #{mad_beats}`"
   end
 
 end
 
-beat = JungleBeats.new("beep")
-beat.append("bop")
-beat.append("bop")
-beat.append("bop")
-beat.append("bop")
-beat.prepend("bam")
-beat.all
-beat.count
+# split_string.each do |x|
+#   current_node.link = Node.new(x)
+#   current_node = current_node.link
+# end
+
+# beat = JungleBeats.new("beep")
+# beat.append("bop")
+# beat.append("bop")
+# beat.append("bop")
+# beat.append("bop")
+# beat.prepend("bam")
+# beat.all
+# beat.find(1, 2)
+# beat.count
+# beat.play("beep boop boop bam")
