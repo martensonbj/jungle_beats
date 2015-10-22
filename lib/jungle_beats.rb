@@ -1,8 +1,6 @@
-# End Goal: `say -r 500 -v Boing "#{jb.all}"`
 require_relative 'node'
 require 'pry'
-#FIX APPEND
-#FIX POP
+# INSERT & POP
 class JungleBeats
 
   attr_accessor :head
@@ -32,7 +30,6 @@ class JungleBeats
     end
   end
 
-
   def find_tail
     current_node = @head
     until current_node.next_node == nil
@@ -41,16 +38,18 @@ class JungleBeats
     current_node
   end
 
-  def append(value)
-    new_node = Node.new(value)
-    find_tail.next_node = new_node
+  def append(input)
+    value_array = input.split(" ")
+    value_array.each do |word|
+      find_tail.next_node = Node.new(word, nil)
+    end
   end
 
-  def prepend(value)
-    # node_to_prepend = Node.new(value)
-    # node_to_prepend.next_node = @head
-    # @head = node_to_prepend
-    @head = Node.new(value, @head)
+  def prepend(input)
+    value_array = input.split(" ")
+    value_array.each do |word|
+      @head = Node.new(word, @head)
+    end
   end
 
   def count
@@ -90,7 +89,7 @@ class JungleBeats
         popped_values << popped_item
         temp_tail = tail.data
         tail.data = nil
-        temp_tail.next_node = 
+        temp_tail.next_node =
         current_node = @head
       end
     end
@@ -101,7 +100,6 @@ class JungleBeats
     string_to_array = all.split(" ")
     array_of_found_values = string_to_array[(index+1)..(index+num_values)]
     array_of_found_values.join(" ")
-
   end
 
   def include?(value)
@@ -115,30 +113,29 @@ class JungleBeats
     end
   end
 
-  # def insert(number, input)
-  #   current_value = @head
-  #   counter = 1
-  #   # (MAKE LINK LIST(input))
-  # end
+  def insert(number, input)
+    if @head == nil
+      input_array = input.split(" ")
+        input_array.each do |word|
+          value = Node.new(word)
+          @head.append(value)
+        end
+    else
+      current_node = @head
+      counter = 1
+      until current_value.next_node == nil
+         current_value = current_value.next_node
+         counter += 1
+         if counter == number
+           #INSERT DATA AFTER number
+         end
+      end
+    end
+  end
 
   def play
-    return `say -r 500 -v Boing "#{all}"`
+    `say -r 500 -v Boing "#{all}"`
+    count
   end
 
 end
-
-# split_string.each do |x|
-#   current_node.link = Node.new(x)
-#   current_node = current_node.link
-# end
-
-# beat = JungleBeats.new("beep")
-# beat.append("bop")
-# beat.append("bop")
-# beat.append("bop")
-# beat.append("bop")
-# beat.prepend("bam")
-# beat.all
-# beat.find(1, 2)
-# beat.count
-# beat.play("beep boop boop bam")

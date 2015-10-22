@@ -25,17 +25,28 @@ class JungleBeatsTest < Minitest::Test
 
 # APPEND
   def test_you_can_append_a_node
-    jb = JungleBeats.new("Head_Node")
-    jb.append("Node1")
-    assert_equal "Node1", jb.find_tail.data
+    jb = JungleBeats.new("beep")
+    assert_equal 1, jb.count
+    jb.append("boop")
+    assert_equal "boop", jb.find_tail.data
+    assert_equal 2, jb.count
+    assert_equal "boop", jb.find_tail.data
   end
 
   def test_you_can_append_another_node
-    jb = JungleBeats.new("Head_Node")
-    jb.append("Node1")
-    assert_equal "Node1", jb.head.next_node.data
-    jb.append("Node2")
-    assert_equal "Node2",  jb.find_tail.data
+    jb = JungleBeats.new("beep")
+    assert_equal 1, jb.count
+    jb.append("boop")
+    assert_equal 2, jb.count
+    jb.append("blab")
+    assert_equal 3, jb.count
+    assert_equal "blab",  jb.find_tail.data
+  end
+
+  def test_you_can_append_multiple_nodes
+    jb = JungleBeats.new("beep boop")
+    jb.append("bip balama balama")
+    assert_equal 5, jb.count
   end
 
 # COUNT
@@ -72,6 +83,7 @@ class JungleBeatsTest < Minitest::Test
     jb = JungleBeats.new("tee")
     jb.prepend("boop")
     assert_equal "boop", jb.head.data
+    assert_equal 2, jb.count
   end
 
   def test_it_prepends_another_node
@@ -79,6 +91,7 @@ class JungleBeatsTest < Minitest::Test
     jb.prepend("boop")
     jb.prepend("bam")
     assert_equal "bam", jb.head.data
+    assert_equal 3, jb.count
   end
 
 # FIND
@@ -94,41 +107,43 @@ class JungleBeatsTest < Minitest::Test
 
 # INCLUDE
   def test_it_includes_a_value
-    skip
     jb = JungleBeats.new("boom")
-    jb.append("tee")
-    jb.append("bam")
-    assert_equal ("boom tee bam"), jb.all
-    assert_equal true, jb.include?("tee")
+    assert jb.include?("boom")
   end
 
   def test_it_includes_another_value
+    jb = JungleBeats.new("boom bam beep hi")
+    assert jb.include?("beep")
+  end
+
+  def test_it_does_not_include_a_value
+    jb = JungleBeats.new("boom bam beep hi")
+    refute jb.include?("bip")
+  end
+
+  # INSERT
+  def test_it_inserts_one_value
     skip
-    jb = JungleBeats.new("boom")
-    jb.append("tee")
-    jb.append("bam")
-    jb.append("boom")
-    jb.append("boom")
-    # assert_equal true, jb.include?("bam")
-    assert_equal true, jb.include?("boom")
+    jb = JungleBeats.new("boom bam")
+    assert_equal ("boom blip bam"), jb.insert(1, "blip")
   end
 
 # POP
   def test_it_pops_the_last_element
+    skip
     jb = JungleBeats.new("boom tee bam")
     assert_equal "bam", jb.pop()
   end
 
-# TESTS THAT REQUIRE SPLIT ELEMENTS
+# ADDITIONAL
   def test_it_pops_multiple_elements
+    skip
     jb = JungleBeats.new("boom tee bam pop")
     assert_equal ("bam pop"), jb.pop(2)
   end
 
   def test_count_for_4_beats
-    skip
-    jb = JungleBeats.new
-    jb.append("dee dee dee")
+    jb = JungleBeats.new("dee dee dee dee")
     assert_equal 4, jb.count
   end
 
@@ -139,9 +154,8 @@ class JungleBeatsTest < Minitest::Test
   end
 
   def test_it_plays
-    skip
     jb = JungleBeats.new("beep bop boop")
-    assert_equal "`say -r 500 -v Boing 'beep bop boop'`", jb.play("beep bop boop")
+    assert_equal `say -r 500 -v Boing 'beep bop boop'`, jb.play
   end
 
 end
