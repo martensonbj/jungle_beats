@@ -1,22 +1,23 @@
 # End Goal: `say -r 500 -v Boing "#{jb.all}"`
 require_relative 'node'
 require 'pry'
-
+#FIX APPEND
+#FIX POP
 class JungleBeats
 
   attr_accessor :head
 
   def initialize(beats=nil)
-    @head = Node.new(beats)
+    @head = nil
     make_linked_list(beats)
   end
 
   def make_linked_list(beats)
     if beats
       beats = beats.split
-      node = Node.new()
+      node = Node.new(beats[0])
       if @head == nil
-        @head= node
+        @head = node
         beats.shift
         node = @head
       else
@@ -53,7 +54,8 @@ class JungleBeats
   end
 
   def count
-    if @head.data == nil
+    current_node = @head
+    if @head == nil
       counter = 0
     else
       counter = 1
@@ -123,9 +125,8 @@ class JungleBeats
   #   # (MAKE LINK LIST(input))
   # end
 
-  def play(mad_beats)
-    mad_beats = all
-    return "`say -r 500 -v Boing #{mad_beats}`"
+  def play
+    return `say -r 500 -v Boing "#{all}"`
   end
 
 end

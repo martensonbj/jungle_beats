@@ -19,21 +19,18 @@ class JungleBeatsTest < Minitest::Test
   def test_the_head_is_the_tail_with_one_node
     jb = JungleBeats.new("Node1")
     head = @head
-    tail = jb.find_tail
     assert_equal "Node1", jb.head.data
     assert_equal "Node1", jb.find_tail.data
   end
 
 # APPEND
   def test_you_can_append_a_node
-    skip
     jb = JungleBeats.new("Head_Node")
     jb.append("Node1")
     assert_equal "Node1", jb.find_tail.data
   end
 
   def test_you_can_append_another_node
-    skip
     jb = JungleBeats.new("Head_Node")
     jb.append("Node1")
     assert_equal "Node1", jb.head.next_node.data
@@ -43,33 +40,27 @@ class JungleBeatsTest < Minitest::Test
 
 # COUNT
   def test_there_are_0_beats
-    skip
     jb = JungleBeats.new
     assert_equal 0, jb.count
   end
 
   def test_there_is_one_beat
-    skip
     jb = JungleBeats.new("tee")
     assert_equal 1, jb.count
   end
 
   def test_there_are_2_beats
-    skip
-    jb = JungleBeats.new("tee")
-    jb.append("bam")
+    jb = JungleBeats.new("tee bam")
     assert_equal 2, jb.count
   end
 
 # ALL
   def test_all_for_one_beat
-    skip
     jb = JungleBeats.new("tee")
     assert_equal "tee", jb.all
   end
 
   def test_all_for_multiple_beats
-    skip
     jb = JungleBeats.new("tee")
     jb.append("bam")
     jb.append("boom")
@@ -78,14 +69,12 @@ class JungleBeatsTest < Minitest::Test
 
 # PREPEND
   def test_it_prepends_a_node
-    skip
     jb = JungleBeats.new("tee")
     jb.prepend("boop")
     assert_equal "boop", jb.head.data
   end
 
   def test_it_prepends_another_node
-    skip
     jb = JungleBeats.new("tee")
     jb.prepend("boop")
     jb.prepend("bam")
@@ -94,11 +83,10 @@ class JungleBeatsTest < Minitest::Test
 
 # FIND
   def test_it_finds_a_value
-    skip
     jb = JungleBeats.new("boom")
     jb.append("tee")
     jb.append("bam")
-    assert_equal ["boom", "tee", "bam"], jb.all
+    assert_equal ("boom tee bam"), jb.all
     assert_equal "bam", jb.find(1, 1)
   end
 
