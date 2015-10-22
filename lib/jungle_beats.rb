@@ -81,30 +81,26 @@ class JungleBeats
   def pop(num=1)
     current_node = @head
     popped_values = []
-    if count == 0
+    if @head == nil
       return nil
     else
-      temp_tail = find_tail
-      popped_item = temp_tail.data
-      popped_values << popped_item
-      temp_tail.data = nil
-      current_node = @head
+      num.times do
+        tail = find_tail
+        popped_item = tail.data
+        popped_values << popped_item
+        temp_tail = tail.data
+        tail.data = nil
+        temp_tail.next_node = 
+        current_node = @head
+      end
     end
-    return popped_value.join(" ")
+    return popped_values.join(" ")
   end
 
   def find(index, num_values)
-    # counter = 0
-    # current_node = @head
-    # until current_node.next_node == nil
-    #   counter += 1
-    #   if counter == index
-    #     print given number of nodes
-    #   else
-    #     "Node not in list"
-    #   end
-    # end
-    all[(index+1)..(index+num_values)]
+    string_to_array = all.split(" ")
+    array_of_found_values = string_to_array[(index+1)..(index+num_values)]
+    array_of_found_values.join(" ")
 
   end
 

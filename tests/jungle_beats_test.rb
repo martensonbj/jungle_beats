@@ -83,15 +83,13 @@ class JungleBeatsTest < Minitest::Test
 
 # FIND
   def test_it_finds_a_value
-    jb = JungleBeats.new("boom")
-    jb.append("tee")
-    jb.append("bam")
-    assert_equal ("boom tee bam"), jb.all
-    assert_equal "bam", jb.find(1, 1)
+    jb = JungleBeats.new("boom tee bip bip boop")
+    assert_equal "bip", jb.find(1, 1)
   end
 
-  def test_it_finds_another_value
-    skip
+  def test_it_finds_multiple_values
+    jb = JungleBeats.new("boom tee bip bip boop")
+    assert_equal "bip boop", jb.find(2, 2)
   end
 
 # INCLUDE
@@ -117,22 +115,13 @@ class JungleBeatsTest < Minitest::Test
 
 # POP
   def test_it_pops_the_last_element
-    skip
-    jb = JungleBeats.new("boom")
-    jb.append("tee")
-    jb.append("bam")
-    assert_equal ("boom tee bam"), jb.all
-    assert_equal "bam", jb.pop(2)
+    jb = JungleBeats.new("boom tee bam")
+    assert_equal "bam", jb.pop()
   end
 
 # TESTS THAT REQUIRE SPLIT ELEMENTS
   def test_it_pops_multiple_elements
-    skip
-    jb = JungleBeats.new("boom")
-    jb.append("tee")
-    jb.append("bam")
-    jb.append("pop")
-    assert_equal ("boom tee bam pop"), jb.all
+    jb = JungleBeats.new("boom tee bam pop")
     assert_equal ("bam pop"), jb.pop(2)
   end
 
