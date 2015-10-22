@@ -130,7 +130,6 @@ class JungleBeatsTest < Minitest::Test
 
 # POP
   def test_it_pops_the_last_element
-    skip
     jb = JungleBeats.new("boom tee bam")
     assert_equal "bam", jb.pop()
   end
@@ -154,6 +153,7 @@ class JungleBeatsTest < Minitest::Test
   end
 
   def test_it_plays
+    skip
     jb = JungleBeats.new("beep bop boop")
     assert_equal `say -r 500 -v Boing 'beep bop boop'`, jb.play
   end

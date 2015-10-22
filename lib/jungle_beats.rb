@@ -82,18 +82,25 @@ class JungleBeats
     popped_values = []
     if @head == nil
       return nil
+    elsif
+      @head.next_node == nil
+      return @head
     else
       num.times do
-        tail = find_tail
-        popped_item = tail.data
-        popped_values << popped_item
-        temp_tail = tail.data
-        tail.data = nil
-        temp_tail.next_node =
-        current_node = @head
+        popped_items = []
+        new_tail = current_node.next_node.next_node
+        num.times do
+          until new_tail == nil
+            popped_items << find_tail
+            current_node = current_node.next_node
+            new_tail = current_node.next_node
+            current_node = @head
+            binding.pry
+          end
+        end
       end
+      return popped_items.join(" ")
     end
-    return popped_values.join(" ")
   end
 
   def find(index, num_values)
